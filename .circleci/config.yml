@@ -16,51 +16,38 @@ jobs:
       - run:
           name: Run tests
           command: npm test
-  # build-and-push-image:
-  #   docker:
-  #     - image: cimg/node:12.16
-  #   environment:
-  #     ECR_URL: 965398552090.dkr.ecr.ap-northeast-1.amazonaws.com
-  #     ECR_REPO: simple-note-react
-  #   steps:
-  #     - checkout
-  #     - setup_remote_docker:
-  #         version: 20.10.7
-  #     - run:
-  #         name: Install Docker
-  #         command: curl -fsSL https://get.docker.com | sh -
-  #     - node/install-packages:
-  #         # If you are using yarn, change the line below from "npm" to "yarn"
-  #         pkg-manager: npm
-  #     - aws-ecr/build-and-push-image:
-  #         checkout: false
-  #         account-url: ECR_URL
-  #         region: AWS_DEFAULT_REGION
-  #         aws-access-key-id: AWS_ACCESS_KEY_ID
-  #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-  #         path: .
-  #         repo: "${ECR_REPO}"
-  #         tag: "${CIRCLE_SHA1}"
+
+  test-cluster:
+    executor: aws-eks/python3
+    parameters:
+      cluster-name:
+        description: |
+          Name of the EKS cluster
+        type: string
+    steps:
+      - kubernetes/install
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+      - run:
+          command: |
+            kubectl get services
+          name: Test cluster
 
 workflows:
-  # Below is the definition of your workflow.
-  # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.
-  # CircleCI will run this workflow on every commit.
-  # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   sample:
     jobs:
       - build-and-test
-      # For running simple node tests, you could optionally use the node/test job from the orb to replicate and replace the job above in fewer lines.
-      # - node/test:
-      #     version: "12.16" # "16.10"
-      #     pkg-manager: npm
-      - aws-ecr/build-and-push-image:
-          requires:
-            - build-and-test
-          account-url: AWS_ECR_ACCOUNT_URL
-          region: AWS_DEFAULT_REGION
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          path: .
-          repo: "${AWS_ECR_REPO_NAME}"
-          tag: "${CIRCLE_SHA1}"
+      # - aws-ecr/build-and-push-image:
+      #     requires:
+      #       - build-and-test
+      #     account-url: AWS_ECR_ACCOUNT_URL
+      #     region: AWS_DEFAULT_REGION
+      #     aws-access-key-id: AWS_ACCESS_KEY_ID
+      #     aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      #     path: .
+      #     repo: "${AWS_ECR_REPO_NAME}"
+      #     tag: "${CIRCLE_SHA1}"
+      - aws-eks/delete-cluster:
+          cluster-name: eks-from-eksctl
+          # requires:
+          #   - aws-ecr/build-and-push-image
