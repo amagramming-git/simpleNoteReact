@@ -24,6 +24,11 @@ jobs:
       ECR_REPO: simple-note-react
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - run:
+          name: Install Docker
+          command: curl -fsSL https://get.docker.com | sh -
       - node/install-packages:
           # If you are using yarn, change the line below from "npm" to "yarn"
           pkg-manager: npm
