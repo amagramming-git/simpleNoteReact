@@ -49,7 +49,7 @@ workflows:
       #     path: .
       #     repo: "${AWS_ECR_REPO_NAME}"
       #     tag: "${CIRCLE_SHA1}"
-      - aws-eks/delete-cluster:
+      - test-cluster:
           cluster-name: eks-from-eksctl
           # requires:
           #   - aws-ecr/build-and-push-image
