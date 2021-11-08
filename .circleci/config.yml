@@ -57,10 +57,10 @@ workflows:
       - aws-ecr/build-and-push-image:
           requires:
             - build-and-test
-          account-url: "965398552090.dkr.ecr.ap-northeast-1.amazonaws.com"
+          account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_DEFAULT_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           path: .
-          repo: "simple-note-react"
+          repo: AWS_ECR_REPO_NAME
           tag: "${CIRCLE_SHA1}"
