@@ -35,20 +35,37 @@ jobs:
             kubectl get services
           name: Test cluster
 
+  create-deployment:
+    executor: aws-eks/python3
+    parameters:
+      cluster-name:
+        description: |
+          Name of the EKS cluster
+        type: string
+    steps:
+      - checkout
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: << parameters.cluster-name >>
+          install-kubectl: true
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-name: deployment/nginx-deployment
+          resource-file-path: tests/nginx-deployment/deployment.yaml
+
 workflows:
   sample:
     jobs:
       - build-and-test
-      # - aws-ecr/build-and-push-image:
-      #     requires:
-      #       - build-and-test
-      #     account-url: AWS_ECR_ACCOUNT_URL
-      #     region: AWS_DEFAULT_REGION
-      #     aws-access-key-id: AWS_ACCESS_KEY_ID
-      #     aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-      #     path: .
-      #     repo: "${AWS_ECR_REPO_NAME}"
-      #     tag: "${CIRCLE_SHA1}"
+      - aws-ecr/build-and-push-image:
+          requires:
+            - build-and-test
+          account-url: AWS_ECR_ACCOUNT_URL
+          region: AWS_DEFAULT_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          path: .
+          repo: "${AWS_ECR_REPO_NAME}"
+          tag: v1.0 # "${CIRCLE_SHA1}"
       - test-cluster:
           cluster-name: eks-from-eksctl
           # requires:
