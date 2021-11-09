@@ -48,7 +48,6 @@ const Auth = () => {
     return (
         <div style={{ paddingTop: "90px" }}>
             <Container className="text-center"><img className="mb-4" src={logo} alt="" width="200" height="200"></img></Container>
-            <div>デプロイされているかのテスト</div>
             <Container>
                 <Row>
                     <Col md={{ span: 6, offset: 3 }}>
