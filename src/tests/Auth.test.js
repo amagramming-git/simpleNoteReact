@@ -55,7 +55,6 @@ describe("Auth Component Test Cases", () => {
         );
         // screen.debug(); //取得した画面情報はscreenに保存されている。この文言でscreenの内容を確認することができる。
         expect(true).toBe(true);
-        expect(true).toBe(true);
         // expect(screen.getByTestId("label-username")).toBeTruthy();
         // expect(screen.getByTestId("label-password")).toBeTruthy();
         // expect(screen.getByTestId("input-username")).toBeTruthy();
