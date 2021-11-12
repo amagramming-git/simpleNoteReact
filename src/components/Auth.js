@@ -52,7 +52,7 @@ const Auth = () => {
                 <Row>
                     <Col md={{ span: 6, offset: 3 }}>
                         <div className={`${styles.panel_login} ${styles.panel}`} >
-                            <Nav justify variant="pills" defaultActiveKey="1"  >
+                            <Nav justify variant="pills" defaultActiveKey="1">
                                 <Nav.Item>
                                     <Nav.Link eventKey="1" onSelect={() => setIsLogin(true)}>ログイン</Nav.Link>
                                 </Nav.Item>
