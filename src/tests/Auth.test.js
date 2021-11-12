@@ -58,6 +58,8 @@ describe("Auth Component Test Cases", () => {
 
         // expect(screen.getByTestId("label-username")).toBeTruthy();
         // expect(screen.getByTestId("label-password")).toBeTruthy();
+        // expect(screen.getByTestId("input-username")).toBeTruthy();
+        // expect(screen.getByTestId("input-password")).toBeTruthy();
         // expect(screen.getByRole("button")).toBeTruthy();
         // expect(screen.getByTestId("toggle-icon")).toBeTruthy();
     });
