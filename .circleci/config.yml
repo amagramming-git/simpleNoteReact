@@ -6,17 +6,17 @@ orbs:
   aws-eks: circleci/aws-eks@1.1.0
   kubernetes: circleci/kubernetes@0.12.0
 
-jobs:
-  build-and-test:
-    docker:
-      - image: cimg/node:12.16
-    steps:
-      - checkout
-      - node/install-packages:
-          # If you are using yarn, change the line below from "npm" to "yarn"
-          pkg-manager: npm
-      - run:
-          command: npm test
+# jobs:
+#   build-and-test:
+#     docker:
+#       - image: cimg/node:12.16
+#     steps:
+#       - checkout
+#       - node/install-packages:
+#           # If you are using yarn, change the line below from "npm" to "yarn"
+#           pkg-manager: npm
+#       - run:
+#           command: npm test
 
 workflows:
   sample:
