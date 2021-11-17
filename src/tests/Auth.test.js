@@ -7,6 +7,17 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/authSlice";
 import Auth from "../components/Auth";
+// const mockHistoryPush = jest.fn();
+
+// jest.mock("react-router-dom", () => ({
+//     useHistory: () => ({
+//         push: mockHistoryPush,
+//     }),
+// }));
+
+const handlers = [];
+
+const server = setupServer(...handlers);
 
 beforeAll(() => {
     server.listen();
