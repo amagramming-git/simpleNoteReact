@@ -14,11 +14,11 @@ jobs:
       - checkout
       - node/install-packages:
           # If you are using yarn, change the line below from "npm" to "yarn"
-          pkg-manager: npm
+          pkg-manager: yarn
+      # - run:
+      #     command: yarn start &
       - run:
-          command: yarn start &
-      - run:
-          command: npm test
+          command: yarn test
 
 workflows:
   sample:
@@ -38,14 +38,14 @@ workflows:
             branches:
               only:
                 - main
-      - aws-eks/update-container-image:
-          cluster-name: eks-from-eksctl
-          container-image-updates: "react=${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO_NAME}:${CIRCLE_SHA1}"
-          record: true
-          resource-name: deployment.apps/react
-          requires:
-            - aws-ecr/build-and-push-image
-          filters:
-            branches:
-              only:
-                - main
+      # - aws-eks/update-container-image:
+      #     cluster-name: eks-from-eksctl
+      #     container-image-updates: "react=${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO_NAME}:${CIRCLE_SHA1}"
+      #     record: true
+      #     resource-name: deployment.apps/react
+      #     requires:
+      #       - aws-ecr/build-and-push-image
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
