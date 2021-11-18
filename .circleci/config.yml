@@ -19,8 +19,6 @@ jobs:
           command: yarn start &
       - run:
           command: npm test
-      - run:
-          command: yarn stop
 
 workflows:
   sample:
