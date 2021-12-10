@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 # package.jsonとyarn.lockを/usr/src/appにコピー
 COPY ["package.json", "yarn.lock", "./"]
 # パッケージをインストール
-RUN yarn install && npm install \
+RUN yarn install \
     # axiosを利用するため
     && npm install axios \
     # URLのRouteを作成するため
@@ -22,7 +22,9 @@ RUN yarn install && npm install \
     # ページの大きさに応じた表示をするために使用 https://material-ui.com/ja/components/use-media-query/
     && npm install @material-ui/core \
     # テストを行うため
-    && npm install msw
+    && npm install mow
+
+RUN npm install
 
 # ファイルを全部作業用ディレクトリにコピー
 COPY . .
