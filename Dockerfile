@@ -6,7 +6,9 @@ WORKDIR /usr/src/app
 # package.jsonとyarn.lockを/usr/src/appにコピー
 COPY ["package.json", "yarn.lock", "./"]
 # パッケージをインストール
-RUN yarn install && npm install axios \
+RUN yarn install && npm install \
+    # axiosを利用するため
+    && npm install axios \
     # URLのRouteを作成するため
     && npm install react-router-dom \
     # bootstrapを有効化するため
