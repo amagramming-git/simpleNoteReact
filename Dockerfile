@@ -4,7 +4,7 @@ FROM node:12.16.1
 # コンテナ内で作業するディレクトリを指定
 WORKDIR /usr/src/app
 # package.jsonとyarn.lockを/usr/src/appにコピー
-COPY ["package.json", "yarn.lock", "./"]
+COPY ["package.json", "yarn.lock", "package-lock.json", "./"]
 # パッケージをインストール
 RUN yarn install \
     # axiosを利用するため
