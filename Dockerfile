@@ -7,24 +7,23 @@ WORKDIR /usr/src/app
 COPY ["package.json", "yarn.lock", "package-lock.json", "./"]
 # パッケージをインストール
 RUN yarn install \
-    # axiosを利用するため
-    && npm install axios \
-    # URLのRouteを作成するため
-    && npm install react-router-dom \
-    # bootstrapを有効化するため
-    && npm install react-bootstrap@next bootstrap@5.0.2 \
-    # Sliceを使用するため
-    && npm install --save @reduxjs/toolkit react-redux \
-    # validationを行うため
-    && npm install react-hook-form \
-    # iconをページ内で使用するため https://react-icons.github.io/react-icons/
-    && npm install react-icons --save \
-    # ページの大きさに応じた表示をするために使用 https://material-ui.com/ja/components/use-media-query/
-    && npm install @material-ui/core \
-    # テストを行うため
-    && npm install mow
-
-RUN npm install
+    && npm install
+# # axiosを利用するため
+# && npm install axios \
+# # URLのRouteを作成するため
+# && npm install react-router-dom \
+# # bootstrapを有効化するため
+# && npm install react-bootstrap@next bootstrap@5.0.2 \
+# # Sliceを使用するため
+# && npm install --save @reduxjs/toolkit react-redux \
+# # validationを行うため
+# && npm install react-hook-form \
+# # iconをページ内で使用するため https://react-icons.github.io/react-icons/
+# && npm install react-icons --save \
+# # ページの大きさに応じた表示をするために使用 https://material-ui.com/ja/components/use-media-query/
+# && npm install @material-ui/core \
+# # テストを行うため
+# && npm install mow
 
 # ファイルを全部作業用ディレクトリにコピー
 COPY . .
