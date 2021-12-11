@@ -73,6 +73,8 @@ workflows:
       #     requires:
       #       - aws-ecr/build-and-push-image
       - eks-update-container-image:
+          requires:
+            - aws-ecr/build-and-push-image
           filters:
             branches:
               only:
