@@ -27,7 +27,7 @@ jobs:
           CONTAINER_IMAGE_UPDATES="react=${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO_NAME}:${CIRCLE_SHA1}"
           NAMESPACE=""
           RECORD="false"
-          DRY_RUN="false"
+          DRY_RUN="none"
           if [ -n "${RESOURCE_FILE_PATH}" ]; then
             set -- "$@" -f
             set -- "$@" "${RESOURCE_FILE_PATH}"
