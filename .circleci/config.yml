@@ -17,6 +17,36 @@ jobs:
           pkg-manager: npm
       - run:
           command: npm test
+  eks-update-container-image:
+    docker:
+      - image: cimg/node:12.16
+    steps:
+      - run: |
+          RESOURCE_FILE_PATH=""
+          RESOURCE_NAME="deployment/react"
+          CONTAINER_IMAGE_UPDATES="react=${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO_NAME}:${CIRCLE_SHA1}"
+          NAMESPACE=""
+          RECORD="false"
+          DRY_RUN="none"
+          if [ -n "${RESOURCE_FILE_PATH}" ]; then
+            set -- "$@" -f
+            set -- "$@" "${RESOURCE_FILE_PATH}"
+          elif [ -n "${RESOURCE_NAME}" ]; then
+            set -- "$@" "${RESOURCE_NAME}"
+          else
+            echo "Error: The update-container-image command requires either resource-file-path or resource-name to be specified."
+            exit 1
+          fi
+          if [ -n "${CONTAINER_IMAGE_UPDATES}" ]; then
+            set -- "$@" ${CONTAINER_IMAGE_UPDATES}
+          fi
+          if [ -n "${NAMESPACE}" ]; then
+            set -- "$@" --namespace="${NAMESPACE}"
+          fi
+          set -- "$@" "--record=${RECORD}"
+          set -- "$@" "--dry-run=${DRY_RUN}"
+
+          kubectl set image "$@"
 
 workflows:
   sample:
@@ -36,12 +66,13 @@ workflows:
             branches:
               only:
                 - main
-      - aws-eks/update-container-image:
-          cluster-name: eks-from-eksctl
-          container-image-updates: "react=${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO_NAME}:${CIRCLE_SHA1}"
-          resource-name: deployment/react
-          requires:
-            - aws-ecr/build-and-push-image
+      # - aws-eks/update-container-image:
+      #     cluster-name: eks-from-eksctl
+      #     container-image-updates: "react=${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO_NAME}:${CIRCLE_SHA1}"
+      #     resource-name: deployment/react
+      #     requires:
+      #       - aws-ecr/build-and-push-image
+      - eks-update-container-image:
           filters:
             branches:
               only:
