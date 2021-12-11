@@ -5,6 +5,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@7.2.0
   aws-eks: circleci/aws-eks@1.1.0
   kubernetes: circleci/kubernetes@0.12.0
+  aws-cli: circleci/aws-cli@2.0
 
 jobs:
   build-and-test:
@@ -104,6 +105,7 @@ jobs:
           fi
 
           $SUDO mv ./aws-iam-authenticator /usr/local/bin/aws-iam-authenticator
+      - aws-cli/install
       - run: |
           #!/bin/bash -eo pipefail
           if [ -z "${AWS_PAGER}" ]; then
