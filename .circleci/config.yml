@@ -39,8 +39,8 @@ workflows:
       - aws-eks/update-container-image:
           cluster-name: eks-from-eksctl
           container-image-updates: "react=${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO_NAME}:${CIRCLE_SHA1}"
-          record: true
-          resource-name: deployment.apps/react
+          resource-name: deployment/react
+          dry-run: none
           requires:
             - aws-ecr/build-and-push-image
           filters:
