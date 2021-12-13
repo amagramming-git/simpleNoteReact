@@ -128,7 +128,7 @@ const MainPage = () => {
                 <div className="border-end bg-white toggled" style={isOpenMenu ? closeMenuCss : openMenuCss} id={styles.sidebar_wrapper}>
                     <Container className="border-bottom bg-light" style={{ padding: '0.75rem 1.25rem', fontSize: '1.2rem' }}>
                         <Row>
-                            <Col>メニュー</Col>
+                            <Col>めにゅー</Col>
                             <Col xs xs="3">
                                 <button type="button" className="btn btn-success rounded-circle p-0" onClick={onClickNewNote} style={{ width: '2rem', height: '2rem' }}><VscAdd /></button>
                             </Col>
