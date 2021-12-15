@@ -153,7 +153,7 @@ jobs:
           RESOURCE_FILE_PATH=""
           RESOURCE_NAME="deployment/react"
           CONTAINER_IMAGE_UPDATES="react=${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO_NAME}:${CIRCLE_SHA1}"
-          NAMESPACE=""
+          NAMESPACE="simple-note"
           RECORD="false"
           DRY_RUN="none"
           if [ -n "${RESOURCE_FILE_PATH}" ]; then
