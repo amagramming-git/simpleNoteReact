@@ -1,13 +1,12 @@
 # 参考URL https://qiita.com/tanaka-tt/items/49628cd423e490120eeb
 # ベースイメージの作成 ローカルのバージョンと揃えよう
-FROM node:12.22.7
+FROM node:14
 # コンテナ内で作業するディレクトリを指定
 WORKDIR /usr/src/app
 # package.jsonとyarn.lockを/usr/src/appにコピー
-COPY ["package.json", "yarn.lock", "package-lock.json", "./"]
+COPY ["package.json", "package-lock.json", "./"]
 # パッケージをインストール
-RUN yarn install \
-    && npm install
+RUN npm install
 # # axiosを利用するため
 # && npm install axios \
 # # URLのRouteを作成するため
@@ -28,4 +27,4 @@ RUN yarn install \
 # ファイルを全部作業用ディレクトリにコピー
 COPY . .
 # コンテナを起動する際に実行されるコマンド
-ENTRYPOINT [ "yarn", "start" ]
+ENTRYPOINT [ "npm", "start" ]
